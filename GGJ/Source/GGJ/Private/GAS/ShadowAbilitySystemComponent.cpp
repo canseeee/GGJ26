@@ -1,0 +1,10 @@
+﻿// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "GAS/ShadowAbilitySystemComponent.h"
+
+
+
+void UShadowAbilitySystemComponent::AbilityActorInfoSet()
+{
+}
