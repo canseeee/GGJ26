@@ -6,6 +6,7 @@
 #include "UObject/Interface.h"
 #include "CombatInterface.generated.h"
 
+class UCapsuleComponent;
 // This class does not need to be modified.
 UINTERFACE()
 class UCombatInterface : public UInterface
@@ -22,4 +23,10 @@ class GGJ_API ICombatInterface
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	virtual bool GetHit();
+	virtual void SetHit(bool Hit);
+	virtual TObjectPtr<UCapsuleComponent> GetWeaponCapsule();
+	virtual void EquipWeapon(int32 WeaponSlot);
+	virtual void UnEquipWeapon();
+
 };

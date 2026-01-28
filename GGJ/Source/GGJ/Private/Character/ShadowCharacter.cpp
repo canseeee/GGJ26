@@ -49,7 +49,7 @@ AShadowCharacter::AShadowCharacter()
 
 TObjectPtr<UMaskDataAsset> AShadowCharacter::GetCurrentMask()
 {
-	return CurrentMask;
+	return Masks[MaskIndex];
 }
 
 TArray<TObjectPtr<UMaskDataAsset>> AShadowCharacter::GetAllMasks()
@@ -59,7 +59,12 @@ TArray<TObjectPtr<UMaskDataAsset>> AShadowCharacter::GetAllMasks()
 
 void AShadowCharacter::ChangeMask(int32 NewMask)
 {
-	CurrentMask = Masks[NewMask];
+	Masks[MaskIndex];
+}
+
+TObjectPtr<UCapsuleComponent> AShadowCharacter::GetWeaponCapsule()
+{
+	return Weapons[MaskIndex]->GetCollisionCapsule();
 }
 
 // Called when the game starts or when spawned

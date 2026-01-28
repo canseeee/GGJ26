@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ShadowCharacterBase.h"
+#include "Actor/Weapon/ShadowWeapon.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Interface/CombatInterface.h"
@@ -24,6 +25,12 @@ public:
 	virtual TArray<TObjectPtr<UMaskDataAsset>> GetAllMasks() override;
 	UFUNCTION(BlueprintCallable)
 	void ChangeMask(int32 NewMask);
+
+	// Combat Interface Start
+	
+	virtual TObjectPtr<UCapsuleComponent> GetWeaponCapsule() override;
+
+	// Combat Interface End
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -44,6 +51,10 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	TArray<TObjectPtr<UMaskDataAsset>> Masks;
 
+	UPROPERTY(EditDefaultsOnly)
+	TArray<TObjectPtr<AShadowWeapon>> Weapons;
+	
 	UPROPERTY()
-	TObjectPtr<UMaskDataAsset> CurrentMask;
+	int32 MaskIndex;
+	
 };
