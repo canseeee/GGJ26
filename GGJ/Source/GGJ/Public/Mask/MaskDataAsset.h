@@ -8,6 +8,7 @@
 
 class UGameplayEffect;
 class UGameplayAbility;
+class AShadowWeapon;
 
 UENUM(BlueprintType)
 enum class EMaskType : uint8
@@ -37,6 +38,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mask")
 	float CurEnergy;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mask")
+    TSubclassOf<AShadowWeapon> WeaponClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mask")
 	TSubclassOf<UGameplayEffect> EquipCostEffect;

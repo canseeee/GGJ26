@@ -7,6 +7,7 @@
 #include "GameFramework/Controller.h"
 #include "GAS/ShadowAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "GAS/Abilities/ShadowGameplayAbility.h"
 #include "Player/ShadowPlayerController.h"
 #include "Player/ShadowPlayerState.h"
 
@@ -59,7 +60,25 @@ TArray<TObjectPtr<UMaskDataAsset>> AShadowCharacter::GetAllMasks()
 
 void AShadowCharacter::ChangeMask(int32 NewMask)
 {
-	Masks[MaskIndex];
+	if(MaskIndex == NewMask)return;
+	for (int32 i = 0; i < Weapons[MaskIndex]->MeleeAttackComboAbilities.Num(); i++)
+	{
+		AbilitySystemComponent->ClearAbility(WeaponAbilityHandles[i]);
+		WeaponAbilityHandles.Empty();
+	}
+	
+	MaskIndex = NewMask;
+	for (int32 i = 0; i < Weapons[MaskIndex]->MeleeAttackComboAbilities.Num(); i++)
+	{
+		const TSubclassOf<UGameplayAbility> AbilityClass = Weapons[MaskIndex]->MeleeAttackComboAbilities[i];
+		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
+		if (const UShadowGameplayAbility* ShadowAbility = Cast<UShadowGameplayAbility>(AbilitySpec.Ability))
+		{
+			AbilitySpec.DynamicAbilityTags.AddTag(ShadowAbility->InputTag);
+			const FGameplayAbilitySpecHandle& WeaponAbilityHandle = AbilitySystemComponent->GiveAbility(AbilitySpec);
+			WeaponAbilityHandles.Add(WeaponAbilityHandle);
+		}
+	}
 }
 
 TObjectPtr<UCapsuleComponent> AShadowCharacter::GetWeaponCapsule()
@@ -70,7 +89,30 @@ TObjectPtr<UCapsuleComponent> AShadowCharacter::GetWeaponCapsule()
 // Called when the game starts or when spawned
 void AShadowCharacter::BeginPlay()
 {
+	InitialWeapons();
 	Super::BeginPlay();
+}
+
+void AShadowCharacter::InitialWeapons()
+{
+	for (int32 i = 0; i<Masks.Num();i++)
+	{
+		AActor* WeaponActor = GetWorld()->SpawnActor(Masks[i]->WeaponClass);
+		//WeaponActor->SetActorHiddenInGame(true);
+		WeaponActor->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform);
+		Weapons.Add(Cast<AShadowWeapon>(WeaponActor));
+	}
+	for (int32 i = 0; i < Weapons[MaskIndex]->MeleeAttackComboAbilities.Num(); i++)
+	{
+		const TSubclassOf<UGameplayAbility> AbilityClass = Weapons[MaskIndex]->MeleeAttackComboAbilities[i];
+		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
+		if (const UShadowGameplayAbility* ShadowAbility = Cast<UShadowGameplayAbility>(AbilitySpec.Ability))
+		{
+			AbilitySpec.DynamicAbilityTags.AddTag(ShadowAbility->InputTag);
+			const FGameplayAbilitySpecHandle& WeaponAbilityHandle = AbilitySystemComponent->GiveAbility(AbilitySpec);
+			WeaponAbilityHandles.Add(WeaponAbilityHandle);
+		}
+	}
 	
 }
 
