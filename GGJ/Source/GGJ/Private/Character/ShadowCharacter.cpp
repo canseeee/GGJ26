@@ -1,9 +1,10 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Character/ShadowCharacter.h"
 #include "Components/InputComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "GameFramework/Controller.h"
 #include "GAS/ShadowAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -46,6 +47,8 @@ AShadowCharacter::AShadowCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); 
 	FollowCamera->bUsePawnControlRotation = false; 
+
+	WeaponHandSocketName = TEXT("WeaponHandSocket");
 }
 
 TObjectPtr<UMaskDataAsset> AShadowCharacter::GetCurrentMask()
@@ -79,6 +82,8 @@ void AShadowCharacter::ChangeMask(int32 NewMask)
 			WeaponAbilityHandles.Add(WeaponAbilityHandle);
 		}
 	}
+
+	AttachWeaponToHand();
 }
 
 TObjectPtr<UCapsuleComponent> AShadowCharacter::GetWeaponCapsule()
@@ -113,6 +118,8 @@ void AShadowCharacter::InitialWeapons()
 			WeaponAbilityHandles.Add(WeaponAbilityHandle);
 		}
 	}
+
+	AttachWeaponToHand();
 	
 }
 
@@ -135,6 +142,48 @@ void AShadowCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 	InitAbilityActorInfo();
+}
+
+void AShadowCharacter::AttachWeaponToHand()
+{
+	if (!GetMesh() || !Weapons.IsValidIndex(MaskIndex) || !Weapons[MaskIndex])
+	{
+		return;
+	}
+
+	// 只显示当前面具的武器，并把其挂到手上
+	for (int32 i = 0; i < Weapons.Num(); ++i)
+	{
+		if (!Weapons[i]) continue;
+
+		const bool bIsCurrent = (i == MaskIndex);
+		Weapons[i]->SetActorHiddenInGame(!bIsCurrent);
+		Weapons[i]->SetActorEnableCollision(bIsCurrent);
+	}
+
+	AShadowWeapon* CurrentWeapon = Weapons[MaskIndex];
+	UStaticMeshComponent* WeaponMeshComp = CurrentWeapon->FindComponentByClass<UStaticMeshComponent>();
+	if (!WeaponMeshComp)
+	{
+		return;
+	}
+
+	static const FName WeaponHandleSocketName(TEXT("Handle"));
+
+	const FTransform CharacterHandSocketWorld = GetMesh()->GetSocketTransform(WeaponHandSocketName, RTS_World);
+	const FTransform WeaponHandleInWeaponMesh = WeaponMeshComp->GetSocketTransform(WeaponHandleSocketName, RTS_Component);
+
+	// 目标：WeaponMesh 的 Handle Socket 世界变换 == 角色手部 Socket 世界变换
+	// DesiredWeaponMeshWorld * WeaponHandleInWeaponMesh == CharacterHandSocketWorld
+	// => DesiredWeaponMeshWorld = CharacterHandSocketWorld * Inverse(WeaponHandleInWeaponMesh)
+	const FTransform DesiredWeaponMeshWorld = WeaponHandleInWeaponMesh.Inverse() * CharacterHandSocketWorld;
+
+	// 将 DesiredWeaponMeshWorld 转为 Actor 世界变换（考虑 WeaponMesh 相对 Actor 的变换）
+	const FTransform WeaponMeshRelToActor = WeaponMeshComp->GetRelativeTransform();
+	const FTransform DesiredActorWorld = WeaponMeshRelToActor.Inverse() * DesiredWeaponMeshWorld;
+
+	CurrentWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepWorldTransform, WeaponHandSocketName);
+	CurrentWeapon->SetActorTransform(DesiredActorWorld);
 }
 
 
