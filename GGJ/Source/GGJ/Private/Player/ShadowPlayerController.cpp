@@ -1,9 +1,12 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Player/ShadowPlayerController.h"
 #include "EnhancedInputSubsystems.h"
+#include "AbilitySystemBlueprintLibrary.h"
+#include "GAS/ShadowAbilitySystemComponent.h"
 #include "Input/ShadowInputComponent.h"
+#include "Player/ShadowPlayerState.h"
 
 
 
@@ -37,9 +40,33 @@ void AShadowPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	UEnhancedInputComponent* OathInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
-	OathInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AShadowPlayerController::Move);
-	OathInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AShadowPlayerController::Look);
+	UShadowInputComponent* ShadowInputComponent = CastChecked<UShadowInputComponent>(InputComponent);
+	ShadowInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AShadowPlayerController::Move);
+	ShadowInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AShadowPlayerController::Look);
+	ShadowInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::InputTagPressed, &ThisClass::InputTagReleased, &ThisClass::InputTagHeld);
+
+}
+
+void AShadowPlayerController::AddPressedTime()
+{
+	PressedTime+=GetWorld()->GetDeltaSeconds();
+}
+
+void AShadowPlayerController::SetPressedTime(float val)
+{
+	PressedTime = val;
+}
+
+UShadowAbilitySystemComponent* AShadowPlayerController::GetASC()
+{
+	if (ShadowAbilitySystemComponent == nullptr)
+	{
+		if (AShadowPlayerState* ShadowPlayerState = GetPlayerState<AShadowPlayerState>())
+		{
+			ShadowAbilitySystemComponent = Cast<UShadowAbilitySystemComponent>(ShadowPlayerState->GetAbilitySystemComponent());
+		}
+	}
+	return ShadowAbilitySystemComponent;
 }
 
 void AShadowPlayerController::Move(const FInputActionValue& InputActionValue)
@@ -81,13 +108,27 @@ void AShadowPlayerController::Look(const FInputActionValue& Value)
 
 void AShadowPlayerController::InputTagPressed(FGameplayTag InputTag)
 {
+	if(GetASC()==nullptr)return;
+	GetASC()->AbilityInputTagPressed(InputTag);
+	GEngine->AddOnScreenDebugMessage(1,3.f,FColor::Red, "Pressed");
+	SetPressedTime(0.f);
 }
 
 void AShadowPlayerController::InputTagReleased(FGameplayTag InputTag)
 {
+	if(GetASC()==nullptr)return;
+	GetASC()->AbilityInputTagReleased(InputTag);
+	GEngine->AddOnScreenDebugMessage(1,3.f,FColor::Blue, "Released");
+	SetPressedTime(0.f);
 }
 
 void AShadowPlayerController::InputTagHeld(FGameplayTag InputTag)
 {
+	AddPressedTime();
+	if(PressedTime>=ShortPressedThreshold)
+	{
+		if(GetASC()==nullptr)return;
+		GetASC()->AbilityInputTagHeld(InputTag);
+		GEngine->AddOnScreenDebugMessage(1,3.f,FColor::Yellow, "Held");
+	}
 }
-

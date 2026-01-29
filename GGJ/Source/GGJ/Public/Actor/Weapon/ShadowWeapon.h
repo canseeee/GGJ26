@@ -7,6 +7,8 @@
 #include "GameFramework/Actor.h"
 #include "ShadowWeapon.generated.h"
 
+class UGameplayAbility;
+
 UCLASS()
 class GGJ_API AShadowWeapon : public AActor
 {
@@ -17,6 +19,10 @@ public:
 	AShadowWeapon();
 
 	TObjectPtr<UCapsuleComponent> GetCollisionCapsule();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Shadow | Data")
+	TArray<TSubclassOf<UGameplayAbility>> MeleeAttackComboAbilities;
+
 private:
 
 	UPROPERTY(EditDefaultsOnly)

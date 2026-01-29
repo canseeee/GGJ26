@@ -7,14 +7,6 @@
 
 
 // Sets default values for this component's properties
-USummonBox::USummonBox()
-{
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
-}
 
 FVector USummonBox::GetRandomPointInBox() const
 {
@@ -28,7 +20,7 @@ FVector USummonBox::GetRandomPointInBox() const
 	const FVector OwnerForward2D = FVector(OwnerForward.X, OwnerForward.Y, 0.0f).GetSafeNormal();
 
 	UWorld* World = GetWorld();
-	float CapsuleRadius = 66.0f;
+	float CapsuleRadius = MinGap;
 	float CapsuleHalfHeight = 88.0f;
 	if (const APawn* OwnerPawn = Cast<APawn>(OwnerActor))
 	{
@@ -49,7 +41,7 @@ FVector USummonBox::GetRandomPointInBox() const
 		const FVector ToCandidateDir2D = ToCandidate2D.GetSafeNormal();
 
 		const float ForwardDot = FVector::DotProduct(OwnerForward2D, ToCandidateDir2D);
-		const bool bInFront90 = ForwardDot >= FMath::Cos(FMath::DegreesToRadians(45.0f));
+		const bool bInFront90 = ForwardDot >= FMath::Cos(FMath::DegreesToRadians(IgnoreAngle*2));
 
 		bool bOverlapsPawn = false;
 		if (World)

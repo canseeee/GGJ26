@@ -28,5 +28,5 @@ public:
 	virtual TObjectPtr<UCapsuleComponent> GetWeaponCapsule();
 	virtual void EquipWeapon(int32 WeaponSlot);
 	virtual void UnEquipWeapon();
-
+	virtual FVector GetHandSocketLocation();
 };

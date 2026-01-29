@@ -27,3 +27,8 @@ void ICombatInterface::EquipWeapon(int32 WeaponSlot)
 void ICombatInterface::UnEquipWeapon()
 {
 }
+
+FVector ICombatInterface::GetHandSocketLocation()
+{
+	return FVector();
+}

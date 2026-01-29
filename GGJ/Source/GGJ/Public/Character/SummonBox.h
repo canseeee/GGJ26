@@ -13,8 +13,12 @@ class GGJ_API USummonBox : public UBoxComponent
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this component's properties
-	USummonBox();
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float IgnoreAngle;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float MinGap;
 	
 	UFUNCTION(BlueprintCallable, Category="Summon")
 	FVector GetRandomPointInBox() const;

@@ -11,6 +11,7 @@
 #include "Interface/MaskInterface.h"
 #include "ShadowCharacter.generated.h"
 
+struct FGameplayAbilitySpecHandle;
 class UMaskDataAsset;
 
 UCLASS()
@@ -35,6 +36,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void InitialWeapons();
 public:
 	void InitAbilityActorInfo();
 	/** 摄像机弹簧臂组件 */
@@ -45,16 +47,23 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UCameraComponent> FollowCamera;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Shadow | Data")
+	TArray<TSubclassOf<AShadowWeapon>> WeaponClasses;
+	
 	virtual void PossessedBy(AController* NewController) override;
 
+	FName WeaponHandSocketName;
+
 private:
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = "Shadow | Data")
 	TArray<TObjectPtr<UMaskDataAsset>> Masks;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY()
 	TArray<TObjectPtr<AShadowWeapon>> Weapons;
 	
 	UPROPERTY()
-	int32 MaskIndex;
-	
+	int32 MaskIndex = 0;
+
+	UPROPERTY()
+	TArray<FGameplayAbilitySpecHandle> WeaponAbilityHandles;
 };

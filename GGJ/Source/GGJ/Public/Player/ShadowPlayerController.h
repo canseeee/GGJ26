@@ -5,8 +5,10 @@
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
 #include "GameFramework/PlayerController.h"
+#include "Input/ShadowInputConfig.h"
 #include "ShadowPlayerController.generated.h"
 
+class UShadowAbilitySystemComponent;
 class UInputMappingContext;
 struct FGameplayTag;
 class UInputAction;
@@ -27,15 +29,34 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 
+	UFUNCTION(BlueprintCallable)
+	void AddPressedTime();
+
+	UFUNCTION(BlueprintCallable)
+	void SetPressedTime(float val);
 private:
-	UPROPERTY(EditAnywhere, Category="Input")
+	UShadowAbilitySystemComponent* GetASC();
+	
+	UPROPERTY()
+	TObjectPtr<UShadowAbilitySystemComponent> ShadowAbilitySystemComponent;
+	
+	UPROPERTY(EditAnywhere, Category="Shadow | Input")
 	TObjectPtr<UInputMappingContext> InputContext;
 	
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category="Shadow | Input")
 	TObjectPtr<UInputAction> MoveAction;
 
-	UPROPERTY(EditAnywhere, Category="Input")
+	UPROPERTY(EditAnywhere, Category="Shadow | Input")
 	TObjectPtr<UInputAction> LookAction;
+
+	UPROPERTY(EditAnywhere, Category="Shadow | Input")
+	float ShortPressedThreshold = 0.2f;
+	
+	UPROPERTY(EditAnywhere, Category="Shadow | Input")
+	float PressedTime = 0.f;
+
+	UPROPERTY(EditDefaultsOnly, Category="Input")
+	TObjectPtr<UShadowInputConfig> InputConfig;
 	
 	void Move(const FInputActionValue& InputActionValue);
 	void Look(const FInputActionValue& Value);

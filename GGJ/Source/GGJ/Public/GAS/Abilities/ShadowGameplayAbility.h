@@ -13,4 +13,7 @@ UCLASS()
 class GGJ_API UShadowGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Input")
+	FGameplayTag InputTag;
 };

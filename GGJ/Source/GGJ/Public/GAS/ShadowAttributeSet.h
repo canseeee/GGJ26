@@ -13,4 +13,5 @@ UCLASS()
 class GGJ_API UShadowAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
+
 };

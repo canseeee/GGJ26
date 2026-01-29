@@ -8,7 +8,7 @@
 #include "ShadowInputComponent.generated.h"
 
 
-UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+UCLASS()
 class GGJ_API UShadowInputComponent : public UEnhancedInputComponent
 {
 	GENERATED_BODY()
