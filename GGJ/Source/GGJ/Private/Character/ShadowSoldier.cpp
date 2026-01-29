@@ -26,6 +26,21 @@ void AShadowSoldier::Die()
 {
 }
 
+void AShadowSoldier::SetHit(bool Hit)
+{
+	bHit = Hit;
+}
+
+bool AShadowSoldier::GetHit()
+{
+	return bHit;
+}
+
+TObjectPtr<UCapsuleComponent> AShadowSoldier::GetWeaponCapsule()
+{
+	return Weapon->GetCollisionCapsule();
+}
+
 void AShadowSoldier::InitAbilityActorInfo()
 {
 	InitialAttribute();
