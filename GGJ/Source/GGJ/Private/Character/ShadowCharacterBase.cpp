@@ -12,6 +12,11 @@ AShadowCharacterBase::AShadowCharacterBase()
 
 }
 
+UAbilitySystemComponent* AShadowCharacterBase::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
 // Called when the game starts or when spawned
 void AShadowCharacterBase::BeginPlay()
 {

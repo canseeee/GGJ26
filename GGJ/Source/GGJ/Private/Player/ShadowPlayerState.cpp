@@ -8,14 +8,13 @@
 
 AShadowPlayerState::AShadowPlayerState()
 {
-	AbilitySystemComponent = CreateDefaultSubobject<UShadowAbilitySystemComponent>(TEXT("AbilitySystem"));
+	AbilitySystemComponent = CreateDefaultSubobject<UShadowAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
 	AttributeSet = CreateDefaultSubobject<UShadowAttributeSet>(TEXT("AttributeSet"));
 
-	//todo::5.4没这个函数
-	// SetNetUpdateFrequency(100.f);
+	NetUpdateFrequency = 100.f;
 }
 
 UAbilitySystemComponent* AShadowPlayerState::GetAbilitySystemComponent() const

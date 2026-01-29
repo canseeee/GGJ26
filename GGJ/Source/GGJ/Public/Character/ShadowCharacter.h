@@ -66,4 +66,6 @@ private:
 
 	UPROPERTY()
 	TArray<FGameplayAbilitySpecHandle> WeaponAbilityHandles;
+
+	void AttachWeaponToHand();
 };

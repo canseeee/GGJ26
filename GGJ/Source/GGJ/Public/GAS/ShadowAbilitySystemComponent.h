@@ -7,7 +7,7 @@
 #include "ShadowAbilitySystemComponent.generated.h"
 
 
-UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+UCLASS()
 class GGJ_API UShadowAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
