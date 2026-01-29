@@ -12,7 +12,7 @@ UE_DEFINE_GAMEPLAY_TAG(State_Debuff_Sprinting,"State.Locker.Sprinting");
 UE_DEFINE_GAMEPLAY_TAG(State_Debuff_Stunned,"State.Debuff.Stunned");
 UE_DEFINE_GAMEPLAY_TAG(State_Status_HitReact, "State.Status.HitReact");
 UE_DEFINE_GAMEPLAY_TAG(State_Status_Invincible, "State.Status.Invincible");
-UE_DEFINE_GAMEPLAY_TAG(State_Status_Dead, "State_Status.Dead");
+UE_DEFINE_GAMEPLAY_TAG(State_Status_Dead, "State.Status.Dead");
 
 UE_DEFINE_GAMEPLAY_TAG(Ability_Weapon_Dao_MeleeAttack_X, "Ability.Weapon_Dao.MeleeAttack.X");
 UE_DEFINE_GAMEPLAY_TAG(Ability_Weapon_Dao_MeleeAttack_XX, "Ability.Weapon_Dao.MeleeAttack.XX");
