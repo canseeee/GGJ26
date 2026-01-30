@@ -23,8 +23,19 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UCapsuleComponent* GetCapsuleComponent();
+
+	UFUNCTION(BlueprintCallable)
+	void CauseDamage(AActor* TargetActor);
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,Category="Shadow | Data")
 	UAnimMontage* MeleeAttackMontage;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,Category="Shadow | Data")
+	TSubclassOf<UGameplayEffect> DamageEffectClass;
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,Category="Shadow | Data")
+	float DamageValue;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,Category="Shadow | Data")
+	float ArmorPiercing = 0;
 };

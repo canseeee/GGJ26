@@ -19,11 +19,8 @@ UE_DEFINE_GAMEPLAY_TAG(State_Locker_Sprinting,"State.Locker.Sprinting");
 UE_DEFINE_GAMEPLAY_TAG(State_Debuff_Stunned,"State.Debuff.Stunned");
 
 // 状态标签——状态
-UE_DEFINE_GAMEPLAY_TAG(State_Status_HitReact, "State.Status.HitReact");
-UE_DEFINE_GAMEPLAY_TAG(State_Status_Parry_Start, "State.Status.Parry.Start");
-UE_DEFINE_GAMEPLAY_TAG(State_Status_Parry_End, "State.Status.Parry.End");
-UE_DEFINE_GAMEPLAY_TAG(State_Status_Dodge_Start, "State.Status.Dodge.Start");
-UE_DEFINE_GAMEPLAY_TAG(State_Status_Dodge_End, "State.Status.Dodge.End");
+UE_DEFINE_GAMEPLAY_TAG(State_Status_Parry, "State.Status.Parry");
+UE_DEFINE_GAMEPLAY_TAG(State_Status_Dodge, "State.Status.Dodge");
 UE_DEFINE_GAMEPLAY_TAG(State_Status_Invincible, "State.Status.Invincible");
 UE_DEFINE_GAMEPLAY_TAG(State_Status_Dead, "State.Status.Dead");
 
@@ -37,7 +34,11 @@ UE_DEFINE_GAMEPLAY_TAG(Effect_EnergyIncreased_White, "Effect.EnergyIncreased.Whi
 UE_DEFINE_GAMEPLAY_TAG(Combo_X, "Combo.X");
 UE_DEFINE_GAMEPLAY_TAG(Combo_XX, "Combo.XX");
 UE_DEFINE_GAMEPLAY_TAG(Combo_XXX, "Combo.XXX");
+UE_DEFINE_GAMEPLAY_TAG(Attack_Damage_Start, "Attack.Damage.Start");
+UE_DEFINE_GAMEPLAY_TAG(Attack_Damage_End, "Attack.Damage.End");
 
 // 对抗
 UE_DEFINE_GAMEPLAY_TAG(Battle_ByBlocked, "Battle.ByBlocked");
-UE_DEFINE_GAMEPLAY_TAG(Battle_Attack, "Battle.Attack1");	// 可被弹刀类型攻击
+UE_DEFINE_GAMEPLAY_TAG(Battle_ParrySuccess, "Battle.ParrySuccess");
+UE_DEFINE_GAMEPLAY_TAG(Battle_HitReact, "Battle.HitReact");
+UE_DEFINE_GAMEPLAY_TAG(Battle_Attack, "Battle.Attack");	// 可被弹刀类型攻击

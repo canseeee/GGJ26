@@ -37,6 +37,10 @@ void UShadowAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCall
 	{
 		HandleHPChanged(Props);
 	}
+	else if (Attribute == GetIncomingDamageAttribute())
+	{
+		HandleIncomingDamage(Props);
+	}
 	else if (Attribute == GetEnergyGreenAttribute())
 	{
 		HandleEnergyChanged(Props, 1);
@@ -201,4 +205,29 @@ bool UShadowAttributeSet::HandleIncomingDamage_HealthAndDeath(const FEffectPrope
 void UShadowAttributeSet::HandleIncomingDamage_PlayHitReact(const FEffectProperties& Props, float DamageToApply,
 	bool bFatal)
 {
+	// 致死或者没有真正扣血（DamageToApply <= 0），都不播放受击动画
+	if (bFatal || DamageToApply <= 0.f)
+	{
+		return;
+	}
+
+	if (IsValid(Props.TargetASC))
+	{
+		FGameplayTag HitReactTag = FGameplayTag::RequestGameplayTag("Battle.HitReact");
+
+		if (HitReactTag.IsValid())
+		{
+			FGameplayTagContainer TagContainer;
+			TagContainer.AddTag(HitReactTag);
+
+			if (Props.TargetASC->IsValidLowLevel())
+			{
+				Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);
+			}
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PostGameplayEffectExecute: TargetASC is invalid during hit react"));
+	}
 }

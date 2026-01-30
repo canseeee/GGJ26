@@ -36,7 +36,7 @@ bool AShadowSoldier::GetHit()
 	return bHit;
 }
 
-TObjectPtr<UCapsuleComponent> AShadowSoldier::GetWeaponCapsule()
+UCapsuleComponent* AShadowSoldier::GetWeaponCapsule_Implementation()
 {
 	return Weapon->GetCollisionCapsule();
 }

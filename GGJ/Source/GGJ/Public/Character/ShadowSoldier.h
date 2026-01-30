@@ -22,7 +22,7 @@ public:
 	
 	virtual void SetHit(bool Hit) override;
 	virtual bool GetHit() override;
-	virtual TObjectPtr<UCapsuleComponent> GetWeaponCapsule() override;
+	virtual UCapsuleComponent* GetWeaponCapsule_Implementation() override;
 
 	// Combat Interface End
 protected:

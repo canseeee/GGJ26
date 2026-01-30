@@ -29,7 +29,7 @@ public:
 
 	// Combat Interface Start
 	
-	virtual TObjectPtr<UCapsuleComponent> GetWeaponCapsule() override;
+	virtual UCapsuleComponent* GetWeaponCapsule_Implementation() override;
 
 	// Combat Interface End
 protected:

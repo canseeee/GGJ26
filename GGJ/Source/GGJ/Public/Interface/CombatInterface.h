@@ -8,7 +8,7 @@
 
 class UCapsuleComponent;
 // This class does not need to be modified.
-UINTERFACE()
+UINTERFACE(MinimalAPI, BlueprintType)
 class UCombatInterface : public UInterface
 {
 	GENERATED_BODY()
@@ -25,7 +25,10 @@ class GGJ_API ICombatInterface
 public:
 	virtual bool GetHit();
 	virtual void SetHit(bool Hit);
-	virtual TObjectPtr<UCapsuleComponent> GetWeaponCapsule();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	UCapsuleComponent* GetWeaponCapsule();
+	
 	virtual void EquipWeapon(int32 WeaponSlot);
 	virtual void UnEquipWeapon();
 	virtual FVector GetHandSocketLocation();

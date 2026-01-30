@@ -86,7 +86,7 @@ void AShadowCharacter::ChangeMask(int32 NewMask)
 	AttachWeaponToHand();
 }
 
-TObjectPtr<UCapsuleComponent> AShadowCharacter::GetWeaponCapsule()
+UCapsuleComponent* AShadowCharacter::GetWeaponCapsule_Implementation()
 {
 	return Weapons[MaskIndex]->GetCollisionCapsule();
 }

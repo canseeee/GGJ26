@@ -17,6 +17,7 @@ public class GGJ : ModuleRules
 			"GameplayAbilities",
 			"GameplayTags",
 			"GameplayTasks",
+			"UMG",
 			"AIModule"
 		});
 	}

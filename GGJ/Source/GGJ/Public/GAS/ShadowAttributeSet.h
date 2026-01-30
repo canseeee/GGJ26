@@ -69,12 +69,12 @@ public:
 	ATTRIBUTE_ACCESSORS(UShadowAttributeSet, MaxHP);
 	
 	UPROPERTY(BlueprintReadOnly,Category="Attributes")
-	FGameplayAttributeData MaxMP;	
-	ATTRIBUTE_ACCESSORS(UShadowAttributeSet, MaxMP);
-	
+	FGameplayAttributeData Strength;	
+	ATTRIBUTE_ACCESSORS(UShadowAttributeSet, Strength);
+
 	UPROPERTY(BlueprintReadOnly,Category="Attributes")
-	FGameplayAttributeData AD;	
-	ATTRIBUTE_ACCESSORS(UShadowAttributeSet, AD);
+	FGameplayAttributeData Defence;	
+	ATTRIBUTE_ACCESSORS(UShadowAttributeSet, Defence);
 	
 	UPROPERTY(BlueprintReadOnly,Category="Attributes")
 	FGameplayAttributeData MoveSpeed;	
