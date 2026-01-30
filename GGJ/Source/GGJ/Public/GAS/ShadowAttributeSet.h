@@ -59,6 +59,26 @@ public:
 	FGameplayAttributeData EnergyWhite;	
 	ATTRIBUTE_ACCESSORS(UShadowAttributeSet, EnergyWhite);
 
+	/*
+	 * Meta Attributes
+	 */
+
+	UPROPERTY(BlueprintReadOnly, Category ="Meta Attributes")
+	FGameplayAttributeData IncomingDamage;
+	ATTRIBUTE_ACCESSORS(UShadowAttributeSet,IncomingDamage);
+
+	UPROPERTY(BlueprintReadOnly, Category ="Meta Attributes")
+	FGameplayAttributeData RedEnergyCost;
+	ATTRIBUTE_ACCESSORS(UShadowAttributeSet, RedEnergyCost);
+
+	UPROPERTY(BlueprintReadOnly, Category ="Meta Attributes")
+	FGameplayAttributeData GreenEnergyCost;
+	ATTRIBUTE_ACCESSORS(UShadowAttributeSet, GreenEnergyCost);
+
+	UPROPERTY(BlueprintReadOnly, Category ="Meta Attributes")
+	FGameplayAttributeData WhiteEnergyCost;
+	ATTRIBUTE_ACCESSORS(UShadowAttributeSet, WhiteEnergyCost);
+
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 	
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;

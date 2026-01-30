@@ -14,5 +14,6 @@ class GGJ_API UExecCalc_EnergyGlobeCalc : public UGameplayEffectExecutionCalcula
 {
 	GENERATED_BODY()
 	
-	
+	public:
+	virtual void Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams, FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const override;
 };
