@@ -25,8 +25,8 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	
 	const UAbilitySystemComponent* SourceASC = ExecutionParams.GetSourceAbilitySystemComponent();
 	const UAbilitySystemComponent* TargetASC = ExecutionParams.GetTargetAbilitySystemComponent();
-	AActor* SourceActor = SourceASC->GetOwner();
-	AActor* TargetActor = TargetASC->GetOwner();
+	AActor* SourceActor = SourceASC->GetAvatarActor();
+	AActor* TargetActor = TargetASC->GetAvatarActor();
 
 	if(TargetASC->HasMatchingGameplayTag(FGameplayTag::RequestGameplayTag("State.Status.Parry")))
 	{
