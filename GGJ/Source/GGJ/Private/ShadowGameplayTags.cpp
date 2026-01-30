@@ -37,3 +37,7 @@ UE_DEFINE_GAMEPLAY_TAG(Effect_EnergyIncreased_White, "Effect.EnergyIncreased.Whi
 UE_DEFINE_GAMEPLAY_TAG(Combo_X, "Combo.X");
 UE_DEFINE_GAMEPLAY_TAG(Combo_XX, "Combo.XX");
 UE_DEFINE_GAMEPLAY_TAG(Combo_XXX, "Combo.XXX");
+
+// 对抗
+UE_DEFINE_GAMEPLAY_TAG(Battle_ByBlocked, "Battle.ByBlocked");
+UE_DEFINE_GAMEPLAY_TAG(Battle_Attack, "Battle.Attack1");	// 可被弹刀类型攻击
