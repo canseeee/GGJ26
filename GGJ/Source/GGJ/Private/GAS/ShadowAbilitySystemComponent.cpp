@@ -3,10 +3,12 @@
 
 #include "GAS/ShadowAbilitySystemComponent.h"
 
+#include "GAS/ShadowAttributeSet.h"
 
 
 void UShadowAbilitySystemComponent::AbilityActorInfoSet()
 {
+	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UShadowAbilitySystemComponent::EffectApplied);
 }
 
 void UShadowAbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& InputTag)
@@ -62,4 +64,36 @@ void UShadowAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& 
 			InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputReleased, AbilitySpec.Handle, AbilitySpec.ActivationInfo.GetActivationPredictionKey());
 		}
 	}
+}
+
+void UShadowAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent,const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
+{
+	for(auto& Tag : EffectSpec.GetDynamicAssetTags())
+	{
+		if(!Tag.MatchesTag(FGameplayTag::RequestGameplayTag("Effect.EnergyIncreased")))continue;
+		if(EnergyGlobeArray.Num() >= 5)
+		{
+			EnergyGlobeArray.RemoveAt(0);
+		}
+		if(Tag.MatchesTagExact(FGameplayTag::RequestGameplayTag("Effect.EnergyIncreased.Green")))
+		{
+			EnergyGlobeArray.Add(EEnergyGlobeClass::Green);
+			return;	
+		}
+		if(Tag.MatchesTagExact(FGameplayTag::RequestGameplayTag("Effect.EnergyIncreased.Red")))
+		{
+			EnergyGlobeArray.Add(EEnergyGlobeClass::Red);
+			return;	
+		}
+		if(Tag.MatchesTagExact(FGameplayTag::RequestGameplayTag("Effect.EnergyIncreased.White")))
+		{
+			EnergyGlobeArray.Add(EEnergyGlobeClass::White);
+			return;	
+		}
+	}
+}
+
+void UShadowAbilitySystemComponent::OnEnergyChanged()
+{
+	EnergyChanged.Broadcast(EnergyGlobeArray);
 }
