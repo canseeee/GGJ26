@@ -19,7 +19,7 @@ class GGJ_API UShadowMeleeAttackAbility : public UShadowGameplayAbility
 
 
 public:
-	UPROPERTY(EditDefaultsOnly,Category="Shadow | Data")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly,Category="Shadow | Data")
 	UAnimMontage* MeleeAttackMontage;
 	
 };
