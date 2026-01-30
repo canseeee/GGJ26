@@ -38,4 +38,19 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TSubclassOf<UGameplayEffect> DefaultAttributeSetEffectClass;
+
+
+public:
+	
+	UFUNCTION(BlueprintCallable, Category = "Abilities")
+	bool ActivateAbilitiesWithTags(FGameplayTagContainer AbilityTags, bool bAllowRemoteActivation = true);
+
+	/** 获得当前激活的能力 */
+	UFUNCTION(BlueprintCallable, Category = "Abilities")
+	void GetActiveAbilitiesWithTags(FGameplayTagContainer AbilityTags, TArray<UShadowGameplayAbility*>& ActiveAbilities);
+
+	/** 获得冷却时间剩余和持续时间 */
+	UFUNCTION(BlueprintCallable, Category = "Abilities")
+	bool GetCooldownRemainingForTag(FGameplayTagContainer CooldownTags, float& TimeRemaining, float& CooldownDuration);
+
 };
