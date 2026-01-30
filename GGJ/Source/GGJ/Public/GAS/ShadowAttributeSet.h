@@ -17,6 +17,39 @@ GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName)\
 GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName)\
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+USTRUCT()
+struct FEffectProperties
+{
+	GENERATED_BODY()
+
+	FEffectProperties(){}
+
+	FGameplayEffectContextHandle EffectContextHandle;
+
+	UPROPERTY()
+	UAbilitySystemComponent* SourceASC = nullptr;
+
+	UPROPERTY()
+	AActor* SourceAvatarActor = nullptr;
+
+	UPROPERTY()
+	AController* SourceController = nullptr;
+
+	UPROPERTY()
+	ACharacter* SourceCharacter = nullptr;
+
+	UPROPERTY()
+	UAbilitySystemComponent* TargetASC = nullptr;
+
+	UPROPERTY()
+	AActor* TargetAvatarActor = nullptr;
+
+	UPROPERTY()
+	AController* TargetController = nullptr;
+
+	UPROPERTY()
+	ACharacter* TargetCharacter = nullptr;
+};
 
 UCLASS()
 class GGJ_API UShadowAttributeSet : public UAttributeSet
@@ -82,4 +115,13 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 	
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+
+	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;
+
+	void HandleHPChanged(const FEffectProperties& Props);
+	void HandleIncomingDamage(const FEffectProperties& Props);
+	void HandleEnergyChanged(const FEffectProperties& Props, int EnergyClass);
+	bool HandleIncomingDamage_HealthAndDeath(const FEffectProperties& Props, float DamageToApply);
+	void HandleIncomingDamage_PlayHitReact(const FEffectProperties& Props, float DamageToApply, bool bFatal);
+	
 };
