@@ -14,3 +14,9 @@ void UShadowAbilitySystemLibrary::RemoveGameplayTagFromASC(UAbilitySystemCompone
 {
 	ASC->RemoveLooseGameplayTag(GameplayTag);
 }
+
+
+void UShadowAbilitySystemLibrary::RemoveAllLooseGameplayTagFromASC(UAbilitySystemComponent* ASC, const FGameplayTag GameplayTag)
+{
+	ASC->SetLooseGameplayTagCount(GameplayTag,0);
+}
