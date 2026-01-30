@@ -23,6 +23,11 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Ability")
 	FOnAbilityEndedDelegate OnAbilityEnded;
 
+	UPROPERTY(EditAnywhere,Category="GE")
+	TSubclassOf<UGameplayEffect> EnergyEffect;
+
+	UFUNCTION(BlueprintCallable)
+	void IncreaseEnergyBar();
 protected:
 	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled) override;
 };
