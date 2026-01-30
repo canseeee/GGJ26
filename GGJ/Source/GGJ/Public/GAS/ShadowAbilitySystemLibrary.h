@@ -19,4 +19,7 @@ class GGJ_API UShadowAbilitySystemLibrary : public UAbilitySystemBlueprintLibrar
 
 	UFUNCTION(BlueprintCallable)
 	static void RemoveGameplayTagFromASC(UAbilitySystemComponent* ASC, const FGameplayTag GameplayTag);
+
+	UFUNCTION(BlueprintCallable)
+	static void RemoveAllLooseGameplayTagFromASC(UAbilitySystemComponent* ASC, const FGameplayTag GameplayTag);
 };

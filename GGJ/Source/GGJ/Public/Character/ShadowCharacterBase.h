@@ -30,7 +30,7 @@ protected:
 
 	virtual void InitialAttribute();
 	
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
