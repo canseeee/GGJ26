@@ -6,6 +6,8 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "GAS/ShadowAbilitySystemComponent.h"
 #include "Input/ShadowInputComponent.h"
+#include "GameFramework/Character.h"
+#include "Kismet/GameplayStatics.h"
 #include "Player/ShadowPlayerState.h"
 
 
@@ -55,6 +57,18 @@ void AShadowPlayerController::AddPressedTime()
 void AShadowPlayerController::SetPressedTime(float val)
 {
 	PressedTime = val;
+}
+
+void AShadowPlayerController::ShowDamageNumber(float DamageAmount, ACharacter* TargetCharacter)
+{
+	if (IsValid(TargetCharacter) && DamageTextComponentClass)
+	{
+		UDamageTextComponent* DamageText = NewObject<UDamageTextComponent>(TargetCharacter, DamageTextComponentClass);
+		DamageText->RegisterComponent();
+		DamageText->AttachToComponent(TargetCharacter->GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+		DamageText->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
+		DamageText->SetDamageText(DamageAmount);
+	}
 }
 
 UShadowAbilitySystemComponent* AShadowPlayerController::GetASC()

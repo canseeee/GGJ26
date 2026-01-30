@@ -7,6 +7,8 @@
 #include "GameFramework/Character.h"
 #include "GameplayEffectExtension.h"
 #include "Interface/CombatInterface.h"
+#include "Kismet/GameplayStatics.h"
+#include "Player/ShadowPlayerController.h"
 
 
 void UShadowAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
@@ -104,6 +106,17 @@ void UShadowAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackDa
 	}
 }
 
+void UShadowAttributeSet::ShowFloatingText(const FEffectProperties& Props, float Damage) const
+{
+	if (Props.SourceCharacter != Props.TargetCharacter)
+	{
+		if(AShadowPlayerController* PC = Cast<AShadowPlayerController>(UGameplayStatics::GetPlayerController(Props.SourceCharacter, 0)))
+		{
+			PC->ShowDamageNumber(Damage, Props.TargetCharacter);
+		}
+	}
+}
+
 void UShadowAttributeSet::HandleHPChanged(const FEffectProperties& Props)
 {
 	SetHP(FMath::Clamp(GetHP(), 0.f, GetMaxHP()));
@@ -141,7 +154,8 @@ void UShadowAttributeSet::HandleIncomingDamage(const FEffectProperties& Props)
 
 	// 2. 受击动画（只有在非致死且真正扣了血时才播放）
 	HandleIncomingDamage_PlayHitReact(Props, DamageToApply, bFatal);
-
+	
+	ShowFloatingText(Props, LocalIncomingDamage);
 }
 
 void UShadowAttributeSet::HandleEnergyChanged(const FEffectProperties& Props, int EnergyClass)

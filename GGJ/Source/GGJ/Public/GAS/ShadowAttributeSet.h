@@ -117,7 +117,8 @@ public:
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
 	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;
-
+	
+	void ShowFloatingText(const FEffectProperties& Props, float Damage) const;
 	void HandleHPChanged(const FEffectProperties& Props);
 	void HandleIncomingDamage(const FEffectProperties& Props);
 	void HandleEnergyChanged(const FEffectProperties& Props, int EnergyClass);

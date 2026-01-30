@@ -6,6 +6,7 @@
 #include "InputActionValue.h"
 #include "GameFramework/PlayerController.h"
 #include "Input/ShadowInputConfig.h"
+#include "UI/DamageText/DamageTextComponent.h"
 #include "ShadowPlayerController.generated.h"
 
 class UShadowAbilitySystemComponent;
@@ -25,6 +26,8 @@ class GGJ_API AShadowPlayerController : public APlayerController
 public:
 	AShadowPlayerController();
 
+	UFUNCTION()
+	void ShowDamageNumber(float DamageAmount, ACharacter* TargetCharacter);
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
@@ -34,8 +37,11 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void SetPressedTime(float val);
+
+		
 private:
 	UShadowAbilitySystemComponent* GetASC();
+
 	
 	UPROPERTY()
 	TObjectPtr<UShadowAbilitySystemComponent> ShadowAbilitySystemComponent;
@@ -49,6 +55,9 @@ private:
 	UPROPERTY(EditAnywhere, Category="Shadow | Input")
 	TObjectPtr<UInputAction> LookAction;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UDamageTextComponent> DamageTextComponentClass;
+
 	UPROPERTY(EditAnywhere, Category="Shadow | Input")
 	float ShortPressedThreshold = 0.2f;
 	
@@ -57,7 +66,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category="Input")
 	TObjectPtr<UShadowInputConfig> InputConfig;
-	
+
 	void Move(const FInputActionValue& InputActionValue);
 	void Look(const FInputActionValue& Value);
 	void InputTagPressed(FGameplayTag InputTag);
