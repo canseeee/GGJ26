@@ -17,3 +17,6 @@ Content/Characters
 *.suo
 *.xcodeproj
 *.xcworkspace
+
+#屏蔽下素材
+TempleSan
