@@ -16,3 +16,12 @@ void UShadowMeleeAttackAbility::EndAbility(const FGameplayAbilitySpecHandle Hand
 {
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
 }
+
+UCapsuleComponent* UShadowMeleeAttackAbility::GetCapsuleComponent()
+{
+	if(ICombatInterface* CI = Cast<ICombatInterface>(GetAvatarActorFromActorInfo()))
+	{
+		return CI->GetWeaponCapsule();
+	}
+	return nullptr;
+}

@@ -20,6 +20,10 @@ UE_DEFINE_GAMEPLAY_TAG(State_Debuff_Stunned,"State.Debuff.Stunned");
 
 // 状态标签——状态
 UE_DEFINE_GAMEPLAY_TAG(State_Status_HitReact, "State.Status.HitReact");
+UE_DEFINE_GAMEPLAY_TAG(State_Status_Parry_Start, "State.Status.Parry.Start");
+UE_DEFINE_GAMEPLAY_TAG(State_Status_Parry_End, "State.Status.Parry.End");
+UE_DEFINE_GAMEPLAY_TAG(State_Status_Dodge_Start, "State.Status.Dodge.Start");
+UE_DEFINE_GAMEPLAY_TAG(State_Status_Dodge_End, "State.Status.Dodge.End");
 UE_DEFINE_GAMEPLAY_TAG(State_Status_Invincible, "State.Status.Invincible");
 UE_DEFINE_GAMEPLAY_TAG(State_Status_Dead, "State.Status.Dead");
 

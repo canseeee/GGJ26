@@ -35,9 +35,9 @@ FVector USummonBox::GetRandomPointInBox() const
 	for (int32 TryIndex = 0; TryIndex < MaxTries; ++TryIndex)
 	{
 		FVector Candidate = FMath::RandPointInBox(BoxBounds);
-		Candidate.Z = 90.0f;
+		Candidate.Z = 120.0f;
 
-		const FVector ToCandidate2D = FVector(Candidate.X - OwnerLocation.X, Candidate.Y - OwnerLocation.Y, 90.0f);
+		const FVector ToCandidate2D = FVector(Candidate.X - OwnerLocation.X, Candidate.Y - OwnerLocation.Y, 120.0f);
 		const FVector ToCandidateDir2D = ToCandidate2D.GetSafeNormal();
 
 		const float ForwardDot = FVector::DotProduct(OwnerForward2D, ToCandidateDir2D);
@@ -64,7 +64,7 @@ FVector USummonBox::GetRandomPointInBox() const
 
 	// Fallback: return any random point with Z fixed at 0.
 	FVector Fallback = FMath::RandPointInBox(BoxBounds);
-	Fallback.Z = 90.0f;
+	Fallback.Z = 120.0f;
 	return Fallback;
 }
 
