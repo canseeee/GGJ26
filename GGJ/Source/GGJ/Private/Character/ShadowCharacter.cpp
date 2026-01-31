@@ -91,6 +91,16 @@ UCapsuleComponent* AShadowCharacter::GetWeaponCapsule_Implementation()
 	return Weapons[MaskIndex]->GetCollisionCapsule();
 }
 
+void AShadowCharacter::SetIsBlocking_Implementation(bool isBlocking)
+{
+	bIsBlocking = isBlocking;
+}
+
+bool AShadowCharacter::GetIsBlocking_Implementation()
+{
+	return bIsBlocking;
+}
+
 // Called when the game starts or when spawned
 void AShadowCharacter::BeginPlay()
 {

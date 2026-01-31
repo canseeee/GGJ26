@@ -28,9 +28,17 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	UCapsuleComponent* GetWeaponCapsule();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void SetIsBlocking(bool isBlocking);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	bool GetIsBlocking();
+	
 	
 	virtual void EquipWeapon(int32 WeaponSlot);
 	virtual void UnEquipWeapon();
 	virtual FVector GetHandSocketLocation();
 	virtual void Die();
+
 };
