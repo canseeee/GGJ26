@@ -27,6 +27,3 @@ FVector ICombatInterface::GetHandSocketLocation()
 	return FVector();
 }
 
-void ICombatInterface::Die()
-{
-}
