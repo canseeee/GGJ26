@@ -14,3 +14,8 @@ AShadowBoss::AShadowBoss()
     AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
     AttributeSet = CreateDefaultSubobject<UShadowAttributeSet>("AttributeSet");
 }
+
+void AShadowBoss::Die_Implementation()
+{
+	ICombatInterface::Die_Implementation();
+}

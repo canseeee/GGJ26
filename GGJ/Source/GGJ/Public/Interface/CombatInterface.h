@@ -34,11 +34,14 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	bool GetIsBlocking();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void Die();
 	
 	
 	virtual void EquipWeapon(int32 WeaponSlot);
 	virtual void UnEquipWeapon();
 	virtual FVector GetHandSocketLocation();
-	virtual void Die();
+	
 
 };
