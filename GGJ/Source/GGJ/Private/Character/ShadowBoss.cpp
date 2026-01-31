@@ -17,5 +17,9 @@ AShadowBoss::AShadowBoss()
 
 void AShadowBoss::Die_Implementation()
 {
-	ICombatInterface::Die_Implementation();
+	OnDie();
+}
+
+void AShadowBoss::OnDie_Implementation()
+{
 }

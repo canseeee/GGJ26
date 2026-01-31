@@ -19,4 +19,7 @@ public:
 	AShadowBoss();
 
 	virtual void Die_Implementation() override;
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void OnDie();
 };

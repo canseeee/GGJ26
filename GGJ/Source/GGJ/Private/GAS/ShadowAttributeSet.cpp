@@ -200,7 +200,7 @@ bool UShadowAttributeSet::HandleIncomingDamage_HealthAndDeath(const FEffectPrope
 		ICombatInterface* CombatInterface = Cast<ICombatInterface>(Props.TargetAvatarActor);
 		if (CombatInterface)
 		{
-			CombatInterface->Die();
+			CombatInterface->Die_Implementation();
 		}
 
 		FGameplayTag DeathReactTag = FGameplayTag::RequestGameplayTag("State.Status.Dead");
