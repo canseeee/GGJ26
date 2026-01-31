@@ -11,7 +11,7 @@
  * 
  */
 UCLASS()
-class GGJ_API AShadowBoss : public AShadowCharacterBase, public: ICombatInterface
+class GGJ_API AShadowBoss : public AShadowCharacterBase, public ICombatInterface
 {
 	GENERATED_BODY()
 
