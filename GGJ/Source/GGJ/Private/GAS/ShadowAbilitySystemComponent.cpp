@@ -68,7 +68,9 @@ void UShadowAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& 
 
 void UShadowAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent,const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
 {
-	for(auto& Tag : EffectSpec.GetDynamicAssetTags())
+	FGameplayTagContainer TagContainer;
+	EffectSpec.GetAllAssetTags(TagContainer);
+	for(auto& Tag : TagContainer)
 	{
 		if(!Tag.MatchesTag(FGameplayTag::RequestGameplayTag("Effect.EnergyIncreased")))continue;
 		if(EnergyGlobeArray.Num() >= 5)

@@ -30,7 +30,7 @@ UE_DEFINE_GAMEPLAY_TAG(Ability_Weapon_Dao_MeleeAttack_XXX, "Ability.Weapon.Dao.M
 
 UE_DEFINE_GAMEPLAY_TAG(Effect_EnergyIncreased_Green, "Effect.EnergyIncreased.Green");
 UE_DEFINE_GAMEPLAY_TAG(Effect_EnergyIncreased_Red, "Effect.EnergyIncreased.Red");
-UE_DEFINE_GAMEPLAY_TAG(Effect_EnergyIncreased_White, "Effect.EnergyIncreased.WhiteX");
+UE_DEFINE_GAMEPLAY_TAG(Effect_EnergyIncreased_White, "Effect.EnergyIncreased.White");
 UE_DEFINE_GAMEPLAY_TAG(Combo_X, "Combo.X");
 UE_DEFINE_GAMEPLAY_TAG(Combo_XX, "Combo.XX");
 UE_DEFINE_GAMEPLAY_TAG(Combo_XXX, "Combo.XXX");

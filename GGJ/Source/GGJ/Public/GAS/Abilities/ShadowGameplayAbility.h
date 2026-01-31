@@ -23,7 +23,7 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Ability")
 	FOnAbilityEndedDelegate OnAbilityEnded;
 
-	UPROPERTY(EditAnywhere,Category="GE")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere,Category="GE")
 	TSubclassOf<UGameplayEffect> EnergyEffect;
 
 	UFUNCTION(BlueprintCallable)
