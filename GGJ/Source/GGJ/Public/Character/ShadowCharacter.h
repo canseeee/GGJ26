@@ -31,6 +31,10 @@ public:
 	
 	virtual UCapsuleComponent* GetWeaponCapsule_Implementation() override;
 
+	virtual void SetIsBlocking_Implementation(bool isBlocking) override;
+
+	virtual bool GetIsBlocking_Implementation() override;
+
 	// Combat Interface End
 protected:
 	// Called when the game starts or when spawned
@@ -53,6 +57,9 @@ public:
 	virtual void PossessedBy(AController* NewController) override;
 
 	FName WeaponHandSocketName;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsBlocking;
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Shadow | Data")
