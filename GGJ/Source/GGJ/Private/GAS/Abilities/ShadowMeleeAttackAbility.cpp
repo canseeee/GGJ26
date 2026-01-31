@@ -31,12 +31,44 @@ UCapsuleComponent* UShadowMeleeAttackAbility::GetCapsuleComponent()
 
 void UShadowMeleeAttackAbility::CauseDamage(AActor* TargetActor)
 {
-	FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponentFromActorInfo()->MakeEffectContext();
-	ContextHandle.AddSourceObject(GetAbilitySystemComponentFromActorInfo());
-	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponentFromActorInfo()->MakeOutgoingSpec(DamageEffectClass, 1.f, ContextHandle);
+	if (!TargetActor)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("UShadowMeleeAttackAbility::CauseDamage: TargetActor is null"));
+		return;
+	}
+
+	UAbilitySystemComponent* SourceASC = GetAbilitySystemComponentFromActorInfo();
+	if (!SourceASC)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("UShadowMeleeAttackAbility::CauseDamage: Source AbilitySystemComponent is null"));
+		return;
+	}
+
+	if (!DamageEffectClass)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("UShadowMeleeAttackAbility::CauseDamage: DamageEffectClass is not set"));
+		return;
+	}
+
+	FGameplayEffectContextHandle ContextHandle = SourceASC->MakeEffectContext();
+	ContextHandle.AddSourceObject(SourceASC);
+	const FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(DamageEffectClass, 1.f, ContextHandle);
+
+	if (!SpecHandle.IsValid())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("UShadowMeleeAttackAbility::CauseDamage: Failed to create GameplayEffectSpec"));
+		return;
+	}
+
+	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+	if (!TargetASC)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("UShadowMeleeAttackAbility::CauseDamage: Target Actor has no AbilitySystemComponent"));
+		return;
+	}
 
 	UAbilitySystemBlueprintLibrary::AssignSetByCallerMagnitude(SpecHandle, "DamageValue", DamageValue);
 	UAbilitySystemBlueprintLibrary::AssignSetByCallerMagnitude(SpecHandle, "ArmorPiercing", ArmorPiercing);
 
-	GetAbilitySystemComponentFromActorInfo()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor));
+	SourceASC->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), TargetASC);
 }
