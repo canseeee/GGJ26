@@ -25,11 +25,20 @@ public:
 	virtual UCapsuleComponent* GetWeaponCapsule_Implementation() override;
 
 	// Combat Interface End
+
+	/** WeaponActor类 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon")
+	TSubclassOf<AShadowWeapon> WeaponActorClass;
+
 protected:
-	void InitAbilityActorInfo();
+	void InitAbilityActorInfo();protected:
+	virtual void BeginPlay() override;
+	void InitialWeapons();
+	void AttachWeaponToHand();
+
 private:
 	bool bHit;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY()
 	TObjectPtr<AShadowWeapon> Weapon;
 };
