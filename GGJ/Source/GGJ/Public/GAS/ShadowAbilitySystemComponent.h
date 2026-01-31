@@ -16,7 +16,7 @@ enum class EEnergyGlobeClass : uint8
 	White
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FEnergyChanged, TArray<EEnergyGlobeClass>, EnergyGlobeArray);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FEnergyChanged, const TArray<EEnergyGlobeClass>&, EnergyGlobeArray);
 
 UCLASS()
 class GGJ_API UShadowAbilitySystemComponent : public UAbilitySystemComponent
@@ -40,4 +40,5 @@ public:
 	
 	UFUNCTION()
 	void OnEnergyChanged();
+	
 };
